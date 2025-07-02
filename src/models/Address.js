@@ -20,3 +20,20 @@ const addressSchema = new mongoose.Schema(
 
 const Address = mongoose.model("Address", addressSchema);
 export default Address;
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Address:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         phone:
+ *           type: string
+ *         address:
+ *           type: string
+ *         default:
+ *           type: boolean
+ */

@@ -22,7 +22,8 @@ export const register = async (req, res) => {
     if (existingUser) return res.status(400).json({ message: "Email đã tồn tại" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword, status: "inactive" });
+    const name = req.body.name || email.split("@")[0];
+    const newUser = new User({ email, password: hashedPassword, name, status: "inactive" });
     await newUser.save();
 
     const otp = generateOtp();
@@ -121,7 +122,7 @@ export const login = async (req, res) => {
       });
     }
 
-    res.status(200).json({ message: "Đăng nhập thành công!", accessToken });
+    res.status(200).json({ message: "Đăng nhập thành công!", accessToken, user: { name: existingUser.name } });
   } catch (error) {
     return res.status(500).json({ message: "Lỗi server", error: error.message });
   }

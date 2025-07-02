@@ -63,3 +63,17 @@ export const checkManagerOrSuperAdmin = (req, res, next) => {
   }
   next();
 };
+
+export const isAdmin = (req, res, next) => {
+  if (req.user.role !== "admin" && req.user.role !== "superadmin") {
+    return res.status(403).json({ message: "Bạn không có quyền Admin" });
+  }
+  next();
+};
+
+export const isEditor = (req, res, next) => {
+  if (!["admin", "superadmin", "editor"].includes(req.user.role)) {
+    return res.status(403).json({ message: "Bạn không có quyền Editor" });
+  }
+  next();
+};

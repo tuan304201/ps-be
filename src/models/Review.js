@@ -7,6 +7,9 @@ const reviewSchema = new mongoose.Schema(
     order: { type: mongoose.Schema.Types.ObjectId, ref: "Order", required: true }, // Đơn hàng liên quan
     rating: { type: Number, required: true, min: 1, max: 5 }, // Số sao (1 - 5)
     comment: { type: String, required: true }, // Nội dung đánh giá
+    userName: { type: String },
+    userAvatar: { type: String },
+    productName: { type: String },
   },
   { timestamps: true }, // Tự động thêm createdAt & updatedAt
 );

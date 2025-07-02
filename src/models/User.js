@@ -17,9 +17,70 @@ const userSchema = new mongoose.Schema(
       enum: ["inactive", "active", "locked"],
       default: "inactive",
     },
+    name: { type: String, required: true },
+    phone: { type: String },
+    dob: { type: Date },
+    addresses: [
+      {
+        name: { type: String },
+        phone: { type: String },
+        address: { type: String },
+        default: { type: Boolean, default: false },
+      },
+    ],
+    notifications: [
+      {
+        icon: { type: String },
+        message: { type: String },
+        read: { type: Boolean, default: false },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);
 export default User;
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *         phone:
+ *           type: string
+ *         dob:
+ *           type: string
+ *           format: date
+ *         gender:
+ *           type: string
+ *         avatar:
+ *           type: string
+ *         addresses:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Address'
+ *         notifications:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               icon:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *               read:
+ *                 type: boolean
+ *               createdAt:
+ *                 type: string
+ *                 format: date-time
+ */
